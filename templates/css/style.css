@@ -50,3 +50,13 @@
 .form__textarea {
     width: 100%;
 }
+
+.container {
+    text-align: center;
+
+    padding: 30px;
+    margin: 30px;
+
+    border: 1px solid red;
+    background-color: antiquewhite;
+}

@@ -1,5 +1,8 @@
 <?php
 
+use App\Controllers\Errors\E404;
+use App\Controllers\Errors\EDb;
+use App\Errors\Exception404;
 use App\Errors\ExceptionDb;
 use App\Router;
 
@@ -16,11 +19,11 @@ if($controller){
         $controller();
 
     }catch(ExceptionDb $e){
-        echo $e->getLine();
-        echo $e->getMessage();
-    }catch(\App\Errors\Exception404 $er){
-        echo $er->getLine();
-        echo $er->getMessage();
+        $erController = new EDb();
+        $erController();
+    }catch(Exception404 $er){
+        $erController = new E404();
+        $erController();
     }
 
 }else{

@@ -1,0 +1,52 @@
+.news-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.news-list__item,
+.article {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #f00;
+}
+
+.news-list__text {
+    margin: 0 0 10px 0;
+}
+
+.news-list__links {
+    margin: 10px 0 0 0;
+}
+
+.news-list__links a {
+    padding-right: 10px;
+}
+
+.button {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: #444;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: red;
+}
+
+.form {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid red;
+    min-width: 320px;
+}
+
+.form__input {
+    width: 100%;
+}
+
+.form__textarea {
+    width: 100%;
+}

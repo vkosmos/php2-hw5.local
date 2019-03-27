@@ -2,7 +2,6 @@
 
 namespace App\Controllers\Errors;
 
-
 use App\Controller;
 
 class EDb extends Controller

@@ -3,6 +3,8 @@
 namespace App\Controllers\Admin;
 
 use App\ControllerAdmin;
+use App\Errors\ExceptionMulti;
+use App\Models\Author;
 
 class Add extends ControllerAdmin
 {
@@ -14,15 +16,30 @@ class Add extends ControllerAdmin
             $params = $_POST;
 
             $article = new \App\Models\Article();
-            $article->title = $params['title'];
-            $article->content = $params['content'];
-            $article->author_id = (0 === (int)$params['author']) ? null : (int)$params['author'];
+
+            $data = [];
+            $data['title'] = $params['title'];
+            $data['content'] = $params['content'];
+            $data['author_id'] = (0 === (int)$params['author']) ? null : (int)$params['author'];
+
+            try{
+
+                $article->fill($data);
+
+            }catch(ExceptionMulti $e){
+                $this->view->errors = $e->getAll();
+                $this->view->authors = Author::findAll();
+                $this->view->display( TEMPLATES . '/admin/add.php' );
+                die;
+            }
+
             $article->save();
             header('Location: ' . '/admin/');
+            die;
 
         }
 
-        $this->view->authors = \App\Models\Author::findAll();
+        $this->view->authors = Author::findAll();
         $this->view->display( TEMPLATES . '/admin/add.php' );
     }
 

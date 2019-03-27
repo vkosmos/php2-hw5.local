@@ -60,3 +60,11 @@
     border: 1px solid red;
     background-color: antiquewhite;
 }
+
+.errors-list {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid red;
+    color: red;
+}
+

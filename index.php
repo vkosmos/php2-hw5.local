@@ -21,7 +21,7 @@ if($controller){
     }catch(ExceptionDb $e){
         $erController = new EDb();
         $erController();
-    }catch(Exception404 $er){
+    }catch(Exception404 $e){
         $erController = new E404();
         $erController();
     }

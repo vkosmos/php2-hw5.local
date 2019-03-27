@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\Errors\ExceptionMulti;
 
 /**
  * Class Model
@@ -123,6 +124,38 @@ abstract class Model
         else{
             $this->insert();
         }
+    }
+
+    public function fill($data)
+    {
+        $e = new ExceptionMulti();
+
+        foreach ($data as $key => $value){
+
+            if (is_string($value)){
+
+                if (strlen($value) < 10){
+                    $e->add(new \Exception('Поле: ' . $key . '. Слишком короткая строка. Не менее 10 символов.'));
+                }
+                if (false !== strpbrk($value, '!@№;:?*()_+/')){
+                    $e->add(new \Exception('Поле: ' . $key . '. Строка содержит запрещённые символы.'));
+                }
+
+            }elseif(is_int($value)){
+
+                if ($value <= 0){
+                    $e->add(new \Exception('Поле: ' . $key . '. Неверный числовой параметр.'));
+                }
+
+            }
+
+            $this->$key = $value;
+        }
+
+        if (!$e->isEmpty()){
+            throw $e;
+        }
+
     }
 
 }

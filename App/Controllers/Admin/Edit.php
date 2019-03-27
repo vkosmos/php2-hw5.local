@@ -18,9 +18,11 @@ class Edit extends ControllerAdmin
                 throw new Exception404('Нет такой новости.');
             }
 
-            $article->title = $params['title'];
-            $article->content = $params['content'];
-            $article->author_id = (0 === (int)$params['author']) ? null : $params['author'];
+            $data = [];
+            $data['title'] = $params['title'];
+            $data['content'] = $params['content'];
+            $data['author_id'] = (0 === (int)$params['author']) ? null : (int)$params['author'];
+            $article->fill($data);
             $article->save();
             header('Location: ' . '/admin/');
         }

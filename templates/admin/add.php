@@ -20,6 +20,15 @@
 
 <p><a class="button" href="/admin/">На главную админки</a></p>
 
+<?php if ($this->errors): ?>
+    <ul class="errors-list">
+    <?php foreach ($this->errors as $e): ?>
+         <li><?=$e->getMessage();?></li>
+    <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+
 <form class="form" action="/admin/add" method="post">
     <p>
         <label>

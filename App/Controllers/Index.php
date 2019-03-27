@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controller;
+use App\Errors\Exception404;
 
 class Index extends Controller
 {

@@ -18,6 +18,9 @@ if($controller){
     }catch(ExceptionDb $e){
         echo $e->getLine();
         echo $e->getMessage();
+    }catch(\App\Errors\Exception404 $er){
+        echo $er->getLine();
+        echo $er->getMessage();
     }
 
 }else{

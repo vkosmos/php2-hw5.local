@@ -14,7 +14,10 @@ class Delete extends ControllerAdmin
         if (!empty($params['id'])){
             $article = \App\Models\Article::findById($params['id']);
             if (!$article){
-                throw new Exception404('Нет такой новости.');
+                $e = new Exception404('Запрошенная новость не существует.');
+                $e->time = time();
+                $e->params = $_GET;
+                throw $e;
             }
 
             $article->delete();

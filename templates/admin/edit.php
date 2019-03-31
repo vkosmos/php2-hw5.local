@@ -20,11 +20,13 @@
 
 <p><a class="button" href="/admin/">На главную админки</a></p>
 
-<?php
-    if (false === $this->article){
-        die('Новость не найдена.');
-    }
-?>
+<?php if ($this->errors): ?>
+    <ul class="errors-list">
+        <?php foreach ($this->errors as $e): ?>
+            <li><?=$e->getMessage();?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 
 <form class="form" action="/admin/edit" method="post">
     <input name="id" type="hidden" value="<?=$this->article->id?>">
@@ -66,6 +68,10 @@
 
 </form>
 
+<div class="error-info">
+    <p>Длина названия новости и её текста не менее 10 символов.</p>
+    <p>Запрещенные символы: ! @ № ; : ? * ( ) _ + /</p>
+</div>
 
 
 </body>

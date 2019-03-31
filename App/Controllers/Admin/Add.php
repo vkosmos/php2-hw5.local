@@ -23,9 +23,7 @@ class Add extends ControllerAdmin
             $data['author_id'] = (0 === (int)$params['author']) ? null : (int)$params['author'];
 
             try{
-
                 $article->fill($data);
-
             }catch(ExceptionMulti $e){
                 $this->view->errors = $e->getAll();
                 $this->view->authors = Author::findAll();

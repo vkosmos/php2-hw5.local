@@ -68,3 +68,7 @@
     color: red;
 }
 
+.validation-info {
+    padding: 10px;
+    border: 1px solid red;
+}

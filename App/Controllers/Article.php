@@ -16,7 +16,9 @@ class Article extends Controller
 
             $this->view->article = \App\Models\Article::findById($id);
             if (!$this->view->article){
-                throw new Exception404('Такой статьи нет');
+                $e = new Exception404('Запрошенная новость не существует.');
+                $e->time = time();
+                throw $e;
             }
 
             $this->view->display( TEMPLATES . '/article.php' );

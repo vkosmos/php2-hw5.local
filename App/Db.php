@@ -24,7 +24,8 @@ class Db
                 $config->data['db']['password']
             );
         }catch(\PDOException $e){
-            $dbError = new ExceptionDb('Ошибка соединения с базой данных. ');
+            $dbError = new ExceptionDb('Ошибка соединения с базой данных.');
+            $dbError->time = time();
             throw $dbError;
         }
 
@@ -43,7 +44,9 @@ class Db
     {
         $sth = $this->dbh->prepare($sql);
         if (!$sth){
-            throw new ExceptionDb('Ошибка при подговке запроса.');
+            $dbError = new ExceptionDb('Ошибка при подговке запроса.');
+            $dbError->time = time();
+            throw $dbError;
         }
 
         $sth->execute($params);
@@ -66,7 +69,9 @@ class Db
     {
         $sth = $this->dbh->prepare($sql);
         if (!$sth){
-            throw new ExceptionDb('Ошибка при подговке запроса.');
+            $dbError = new ExceptionDb('Ошибка при подговке запроса.');
+            $dbError->time = time();
+            throw $dbError;
         }
         return $sth->execute($params);
     }

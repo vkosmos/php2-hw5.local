@@ -132,19 +132,31 @@ abstract class Model
 
         foreach ($data as $key => $value){
 
+            switch ($key){
+                case 'title':
+                    $msg = 'Название новости';
+                    break;
+                case 'content':
+                    $msg = 'Текст новости';
+                    break;
+                case 'author':
+                    $msg = 'Автор';
+                    break;
+            }
+
             if (is_string($value)){
 
                 if (strlen($value) < 10){
-                    $e->add(new \Exception('Поле: ' . $key . '. Слишком короткая строка. Не менее 10 символов.'));
+                    $e->add(new \Exception('Поле: <b>' . $msg . '</b>. Слишком короткая строка. Не менее 10 символов.', 11));
                 }
                 if (false !== strpbrk($value, '!@№;:?*()_+/')){
-                    $e->add(new \Exception('Поле: ' . $key . '. Строка содержит запрещённые символы.'));
+                    $e->add(new \Exception('Поле: <b>' . $msg . '</b>. Строка содержит запрещённые символы.', 12));
                 }
 
             }elseif(is_int($value)){
 
                 if ($value <= 0){
-                    $e->add(new \Exception('Поле: ' . $key . '. Неверный числовой параметр.'));
+                    $e->add(new \Exception('Поле: <b>' . $msg . '</b>. Неверный числовой параметр.',13));
                 }
 
             }

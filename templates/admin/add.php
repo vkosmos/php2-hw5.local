@@ -28,7 +28,6 @@
     </ul>
 <?php endif; ?>
 
-
 <form class="form" action="/admin/add" method="post">
     <p>
         <label>
@@ -61,6 +60,11 @@
     <button class="button" type="submit">Добавить</button>
 
 </form>
+
+<div class="error-info">
+    <p>Длина названия новости и её текста не менее 10 символов.</p>
+    <p>Запрещенные символы: ! @ № ; : ? * ( ) _ + /</p>
+</div>
 
 
 

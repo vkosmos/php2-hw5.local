@@ -9,23 +9,25 @@ use App\Router;
 require __DIR__ . '/config/lib.php';
 require __DIR__ . '/App/autoload.php';
 
-$controllerName = '\\' .  Router::processRoute( parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) );
-$controller = new $controllerName;
+$controllerName = Router::processRoute( parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH) );
 
-if($controller){
+try{
+    $controller = new $controllerName;
+}catch(Exception404 $e){
+    \App\Logger::logError($e);
+    $erController = new E404();
+    $erController();
+    die;
+}
 
-    try{
-
-        $controller();
-
-    }catch(ExceptionDb $e){
-        $erController = new EDb();
-        $erController();
-    }catch(Exception404 $e){
-        $erController = new E404();
-        $erController();
-    }
-
-}else{
-    die('Не найден контроллер');
+try{
+    $controller();
+}catch(ExceptionDb $e){
+    \App\Logger::logError($e);
+    $erController = new EDb();
+    $erController();
+}catch(Exception404 $e){
+    \App\Logger::logError($e);
+    $erController = new E404();
+    $erController();
 }

@@ -126,7 +126,14 @@ abstract class Model
         }
     }
 
-    public function fill($data)
+
+    /**
+     * Валидирует переданные данные. При наличии ошибок выбрасывает исключение.
+     *
+     * @param array $data
+     * @throws ExceptionMulti Выбрасывает исключение в случае ошибок валидации
+     */
+    public function fill(array $data)
     {
         $e = new ExceptionMulti();
 
@@ -134,31 +141,26 @@ abstract class Model
 
             switch ($key){
                 case 'title':
-                    $msg = 'Название новости';
+                    if (strlen($value) < 10){
+                        $e->add(new \Exception('слишком короткая строка, не менее 10 символов.', 10));
+                    }
+                    if (false !== strpbrk($value, '!@№;:?*()_+/')){
+                        $e->add(new \Exception('строка содержит запрещённые символы.', 10));
+                    }
                     break;
                 case 'content':
-                    $msg = 'Текст новости';
+                    if (strlen($value) < 30){
+                        $e->add(new \Exception('слишком короткая строка, не менее 30 символов.', 20));
+                    }
+                    if (false !== strpbrk($value, '!@№;:?*()_+/')){
+                        $e->add(new \Exception('строка содержит запрещённые символы.', 20));
+                    }
                     break;
-                case 'author':
-                    $msg = 'Автор';
+                case 'author_id':
+                    if ($value < 0){
+                        $e->add(new \Exception('неверный числовой параметр.',30));
+                    }
                     break;
-            }
-
-            if (is_string($value)){
-
-                if (strlen($value) < 10){
-                    $e->add(new \Exception('Поле: <b>' . $msg . '</b>. Слишком короткая строка. Не менее 10 символов.', 11));
-                }
-                if (false !== strpbrk($value, '!@№;:?*()_+/')){
-                    $e->add(new \Exception('Поле: <b>' . $msg . '</b>. Строка содержит запрещённые символы.', 12));
-                }
-
-            }elseif(is_int($value)){
-
-                if ($value <= 0){
-                    $e->add(new \Exception('Поле: <b>' . $msg . '</b>. Неверный числовой параметр.',13));
-                }
-
             }
 
             $this->$key = $value;
@@ -167,7 +169,6 @@ abstract class Model
         if (!$e->isEmpty()){
             throw $e;
         }
-
     }
 
 }

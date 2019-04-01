@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Config;
 use App\Errors\ExceptionDb;
 
 /**
@@ -61,7 +60,7 @@ class Db
 
     /**
      * Выполняет запрос к БД, не связанный с получением данных
-     * @param $sql sql-запрос к БД
+     * @param string $sql sql-запрос к БД
      * @param array $params массив подстановок
      * @return bool
      */

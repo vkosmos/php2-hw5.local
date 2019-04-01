@@ -23,7 +23,21 @@
 <?php if ($this->errors): ?>
     <ul class="errors-list">
         <?php foreach ($this->errors as $e): ?>
-            <li><?=$e->getMessage();?></li>
+            <?php
+                $msg = '';
+                switch ($e->getCode()){
+                    case 10:
+                        $msg = 'Поле Название новости: ';
+                        break;
+                    case 20:
+                        $msg = 'Поле Текст новости: ';
+                        break;
+                    case 30:
+                        $msg = 'Поле Автор: ';
+                        break;
+                }
+            ?>
+            <li><?=$msg . $e->getMessage();?></li>
         <?php endforeach; ?>
     </ul>
 <?php endif; ?>
@@ -69,7 +83,8 @@
 </form>
 
 <div class="error-info">
-    <p>Длина названия новости и её текста не менее 10 символов.</p>
+    <p>Длина названия новости не менее 10 символов.</p>
+    <p>Длина текста новости не менее 30 символов.</p>
     <p>Запрещенные символы: ! @ № ; : ? * ( ) _ + /</p>
 </div>
 

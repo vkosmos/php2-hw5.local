@@ -31,7 +31,7 @@ class Router
             $controllerAr[] = 'Index';
         }
 
-        $controllerName = '\\App\\Controllers';
+        $controllerName = 'App\\Controllers';
         foreach ($controllerAr as $item){
             $controllerName .= '\\' . ucfirst($item);
         }
